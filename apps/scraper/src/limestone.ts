@@ -74,10 +74,12 @@ async function postJson<TReq, TRes>(url: string, data: TReq, retries: number = 3
 }
 
 function createRosterEntry(record: LimestoneRecord): RosterEntry {
-  const fullNameRaw = record.name;
+  const fullNameRaw = record.name?.trim() ?? "";
   const nameNormalized = normalizeName(fullNameRaw);
 
-  const stableId = sha1(`${record.name}|${record.dob}|${record.arrest_date}`);
+  const stableId = sha1(
+    `${record.name ?? ""}|${record.dob ?? ""}|${record.arrest_date ?? ""}`
+  );
   const id = `limestone:${stableId}`;
 
   let photoUrls: string[] = [];
@@ -87,8 +89,12 @@ function createRosterEntry(record: LimestoneRecord): RosterEntry {
     const filePath = path.join(PHOTO_DIR, filename);
 
     if (!fs.existsSync(filePath)) {
-      const buffer = Buffer.from(record.mugshot, "base64");
-      fs.writeFileSync(filePath, buffer);
+      try {
+        const buffer = Buffer.from(record.mugshot, "base64");
+        fs.writeFileSync(filePath, buffer);
+      } catch (error) {
+        console.error(`❌ Failed to save mugshot for ${id}:`, error);
+      }
     }
 
     photoUrls = [`photos/limestone/${filename}`];
@@ -117,7 +123,7 @@ async function scrapeLimestone() {
   ensureDirExists(PHOTO_DIR);
 
   while (start < total) {
-    const payload = {
+    const payload: LimestoneRequest = {
       name: "",
       race: "all",
       sex: "all",
