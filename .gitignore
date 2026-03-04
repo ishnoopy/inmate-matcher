@@ -2,3 +2,8 @@ node_modules
 .env
 .env.*
 !.env.example
+
+apps/scraper/data/rosters/*.json
+!apps/scraper/data/rosters/.gitkeep
+apps/scraper/data/photos/*
+!apps/scraper/data/photos/.gitkeep

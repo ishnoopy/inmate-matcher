@@ -1,0 +1,18 @@
+{
+  "name": "@apps/scraper",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape:limestone": "tsx src/limestone.ts"
+  },
+  "dependencies": {
+    "p-limit": "^7.3.0",
+    "zod": "^3.23.8",
+    "@inmate-matcher/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}

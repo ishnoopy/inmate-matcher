@@ -2,6 +2,11 @@
   "name": "inmate-matcher",
   "private": true,
   "packageManager": "pnpm@10.28.1",
-  "scripts": {},
-  "author": "Ruel Aldrin Guasa"
+  "scripts": {
+    "scrape:limestone": "pnpm -C apps/scraper scrape:limestone"
+  },
+  "author": "Ruel Aldrin Guasa",
+  "devDependencies": {
+    "@types/node": "^22.19.13"
+  }
 }
