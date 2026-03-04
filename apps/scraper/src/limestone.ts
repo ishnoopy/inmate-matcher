@@ -1,6 +1,5 @@
-import { normalizeName, sha1, type RosterEntry } from "@inmate-matcher/shared";
+import { normalizeName, sha1, sleep, type RosterEntry } from "@inmate-matcher/shared";
 import fs from "fs";
-import sleep from "p-limit";
 import path from "path";
 import process from "process";
 
@@ -145,7 +144,7 @@ async function scrapeLimestone() {
     );
 
     start += pageSize;
-    await sleep(150); // polite pause
+    await sleep(100); // polite pause
   }
 
   // Stable output ordering
