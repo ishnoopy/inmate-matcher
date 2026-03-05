@@ -4,14 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "scrape:limestone": "tsx src/limestone.ts"
+    "scrape:limestone": "tsx src/limestone.ts",
+    "scrape:madison": "tsx src/madison.ts"
   },
   "dependencies": {
+    "@inmate-matcher/shared": "workspace:*",
     "p-limit": "^7.3.0",
     "zod": "^3.23.8",
-    "@inmate-matcher/shared": "workspace:*"
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "tsx": "^4.19.0",
     "typescript": "^5.5.0"
   }
