@@ -3,7 +3,8 @@
   "private": true,
   "packageManager": "pnpm@10.28.1",
   "scripts": {
-    "scrape:limestone": "pnpm -C apps/scraper scrape:limestone"
+    "scrape:limestone": "pnpm -C apps/scraper scrape:limestone",
+    "scrape:madison": "pnpm -C apps/scraper scrape:madison"
   },
   "author": "Ruel Aldrin Guasa",
   "devDependencies": {
