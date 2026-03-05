@@ -1,13 +1,8 @@
-import { normalizeName, sha1, sleep, type RosterEntry } from "@inmate-matcher/shared";
+import { normalizeName, type RosterEntry } from "@inmate-matcher/shared";
 import fs from "fs";
 import path from "path";
 import process from "process";
-
-function ensureDirExists(dirPath: string) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-}
+import { ensureDirExists, sha1, sleep } from "../utils";
 
 type LimestoneRecord = {
   name: string;
