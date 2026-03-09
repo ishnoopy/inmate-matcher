@@ -1,9 +1,48 @@
+# Dependencies
 node_modules
+.pnpm-store
+
+# Environment files (keep .env.example)
 .env
 .env.*
 !.env.example
 
+# Database
+*.db
+*.db-journal
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Scraped data (regeneratable)
 apps/scraper/data/rosters/*.json
 !apps/scraper/data/rosters/.gitkeep
 apps/scraper/data/photos/*
 !apps/scraper/data/photos/.gitkeep
+
+# Uploaded files (user data)
+apps/web/data/uploads/*
+!apps/web/data/uploads/.gitkeep
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage
+.nyc_output

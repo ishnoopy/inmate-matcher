@@ -1,16 +1,16 @@
-const SUFFIXES = new Set(["jr", "sr", "ii", "iii", "iv"]);
+const SUFFIXES = new Set(["JR", "SR", "II", "III", "IV"]);
 
 export function normalizeName(input: string): string {
   if (!input) return "";
 
   let s = input
-    .toLowerCase()
+    .toUpperCase()
     .replace(/[.\-]/g, " ")
-    .replace(/[^a-z,\s]/g, " ")
+    .replace(/[^A-Z,\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
-  // Handle "LAST, FIRST M" => "first last"
+  // Handle "LAST, FIRST M" => "FIRST LAST"
   if (s.includes(",")) {
     const [last, rest] = s.split(",").map((x) => x.trim());
     const tokens = rest.split(" ").filter(Boolean);

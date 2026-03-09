@@ -1,0 +1,78 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String          @id @default(uuid())
+  email         String          @unique
+  password      String
+  name          String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  documents     Document[]
+  emailSettings EmailSettings?
+}
+
+model Document {
+  id              String   @id @default(uuid())
+  filename        String
+  storagePath     String
+  extractedText   String
+  templateType    String?
+  pageCount       Int
+  isLikelyScanned Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  reviewEntries   ReviewEntry[]
+
+  @@index([userId])
+}
+
+model ReviewEntry {
+  id                Int       @id @default(autoincrement())
+  documentId        String
+  extractedName     String
+  matchedInmateId   String
+  matchedInmateName String
+  county            String
+  matchScore        Float
+  scoringBasis      String?
+  status            String    @default("pending")
+  createdAt         DateTime  @default(now())
+  reviewedAt        DateTime?
+  emailSent         Boolean   @default(false)
+  emailSentAt       DateTime?
+
+  // Inmate details from roster
+  inmateDob         String?
+  inmateBookingNum  String?
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([documentId])
+}
+
+model EmailSettings {
+  id               Int      @id @default(autoincrement())
+  enabled          Boolean  @default(false)
+  gmailAddress     String
+  gmailAppPassword String
+  recipientEmail   String
+  autoSendOnMatch  Boolean  @default(true)
+  minScoreForAuto  Int      @default(3)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -3,8 +3,16 @@
   "private": true,
   "packageManager": "pnpm@10.28.1",
   "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "build": "pnpm -C apps/web build",
+    "start": "pnpm -C apps/web start",
+    "db:generate": "pnpm -C apps/web exec prisma generate",
+    "db:push": "pnpm -C apps/web exec prisma db push",
+    "db:studio": "pnpm -C apps/web exec prisma studio",
     "scrape:limestone": "pnpm -C apps/scraper scrape:limestone",
-    "scrape:madison": "pnpm -C apps/scraper scrape:madison"
+    "scrape:madison": "pnpm -C apps/scraper scrape:madison",
+    "scrape:all": "pnpm scrape:madison && pnpm scrape:limestone",
+    "setup:playwright": "pnpm -C apps/scraper exec playwright install chromium"
   },
   "author": "Ruel Aldrin Guasa",
   "devDependencies": {
