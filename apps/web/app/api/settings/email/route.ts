@@ -5,6 +5,7 @@ import { sendTestEmail } from "@/lib/email/sendMatchAlert";
 import { encrypt, safeDecrypt } from "@/lib/crypto/encryptPassword";
 
 export const runtime = "nodejs";
+export const maxDuration = 30; // seconds — prevent the handler from hanging past Nginx's timeout
 
 function maskPassword(password: string): string {
   if (password.length <= 4) return "****";
@@ -167,6 +168,17 @@ export async function PUT(req: Request) {
 
     const body = await req.json();
     const { action } = body;
+
+    if (process.env.NEXT_PUBLIC_IS_EMAILING_ENABLED !== "true") {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "Email alerts are currently disabled. Outbound SMTP is not permitted on DigitalOcean droplets. This feature will be re-enabled once we migrate to a third-party email service provider.",
+        },
+        { status: 503 }
+      );
+    }
 
     if (action === "test") {
       const settings = await prisma.emailSettings.findUnique({

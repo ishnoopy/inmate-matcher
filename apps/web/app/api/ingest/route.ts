@@ -110,13 +110,14 @@ export async function POST(req: Request) {
       }
     }
 
-    // Auto-send email alerts if configured
+    // Auto-send email alerts if configured (and emailing feature is enabled)
     let emailsSent = 0;
-    const emailSettings = await prisma.emailSettings.findUnique({
-      where: { userId: session.user.id },
-    });
+    const isEmailingEnabled = process.env.NEXT_PUBLIC_IS_EMAILING_ENABLED === "true";
+    const emailSettings = isEmailingEnabled
+      ? await prisma.emailSettings.findUnique({ where: { userId: session.user.id } })
+      : null;
 
-    if (emailSettings?.enabled && emailSettings.autoSendOnMatch && matches.length > 0) {
+    if (isEmailingEnabled && emailSettings?.enabled && emailSettings.autoSendOnMatch && matches.length > 0) {
       const appUrl = process.env.NEXT_PUBLIC_APP_URL ||
         req.headers.get("origin") ||
         req.headers.get("referer")?.split("/").slice(0, 3).join("/");

@@ -19,6 +19,17 @@ export async function POST(
       );
     }
 
+    if (process.env.NEXT_PUBLIC_IS_EMAILING_ENABLED !== "true") {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "Email alerts are currently disabled. Outbound SMTP is not permitted on DigitalOcean droplets. This feature will be re-enabled once we migrate to a third-party email service provider.",
+        },
+        { status: 503 }
+      );
+    }
+
     const { entryId } = await params;
     const id = parseInt(entryId, 10);
 

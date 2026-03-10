@@ -16,6 +16,8 @@ import { User } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
+const IS_EMAILING_ENABLED = process.env.NEXT_PUBLIC_IS_EMAILING_ENABLED === "true";
+
 interface ReviewEntry {
   id: number;
   extractedName: string;
@@ -285,7 +287,7 @@ function MatchCard({
           >
             {isUpdating ? "..." : "Reject"}
           </Button>
-          {onSendEmail && !entry.emailSent && (
+          {IS_EMAILING_ENABLED && onSendEmail && !entry.emailSent && (
             <>
               <div className="w-px bg-border" />
               <Button

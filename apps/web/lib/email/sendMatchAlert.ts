@@ -25,11 +25,16 @@ export interface MatchAlertData {
 
 function createTransporter(settings: EmailSettings): Transporter {
   return nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // STARTTLS on port 587
     auth: {
       user: settings.gmailAddress,
       pass: settings.gmailAppPassword,
     },
+    connectionTimeout: 10_000, // fail fast if SMTP port is blocked/unreachable
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
   });
 }
 

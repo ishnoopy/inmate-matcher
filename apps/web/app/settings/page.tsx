@@ -29,6 +29,8 @@ const DEFAULT_SETTINGS: EmailSettings = {
   minScoreForAuto: 3,
 };
 
+const IS_EMAILING_ENABLED = process.env.NEXT_PUBLIC_IS_EMAILING_ENABLED === "true";
+
 export default function SettingsPage() {
   const [settings, setSettings] = React.useState<EmailSettings>(DEFAULT_SETTINGS);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -146,6 +148,34 @@ export default function SettingsPage() {
 
       <main className="mx-auto max-w-3xl px-6 py-8">
         <form onSubmit={handleSave} className="flex flex-col gap-6">
+          {/* Emailing disabled notice */}
+          {!IS_EMAILING_ENABLED && (
+            <div className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/40 dark:bg-amber-950/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="mt-0.5 size-4 shrink-0 text-amber-600 dark:text-amber-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <div className="flex flex-col gap-0.5">
+                <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                  Email alerts are currently disabled
+                </p>
+                <p className="text-xs text-amber-700 dark:text-amber-400">
+                  Outbound SMTP is not permitted on DigitalOcean droplets. You can still
+                  configure your settings here — they will take effect once we migrate to
+                  a third-party email service provider.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Gmail Configuration */}
           <Card>
             <CardHeader className="pb-4">
@@ -332,7 +362,17 @@ export default function SettingsPage() {
               type="button"
               variant="outline"
               onClick={handleTestEmail}
-              disabled={isTesting || !settings.gmailAddress || !settings.recipientEmail}
+              disabled={
+                !IS_EMAILING_ENABLED ||
+                isTesting ||
+                !settings.gmailAddress ||
+                !settings.recipientEmail
+              }
+              title={
+                !IS_EMAILING_ENABLED
+                  ? "Email sending is disabled — SMTP is not permitted on DigitalOcean droplets"
+                  : undefined
+              }
             >
               {isTesting ? "Sending..." : "Send Test Email"}
             </Button>
