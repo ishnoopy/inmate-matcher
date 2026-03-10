@@ -120,13 +120,14 @@ cp apps/web/.env.example apps/web/.env
 # Edit apps/web/.env with your values
 ```
 
-| Variable              | Required | Description                                                                  |
-| --------------------- | -------- | ---------------------------------------------------------------------------- |
-| `DATABASE_URL`        | ✅       | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
-| `AUTH_SECRET`         | ✅       | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
-| `OPENAI_API_KEY`      | ✅       | OpenAI API key for document classification                                   |
-| `ENCRYPTION_KEY`      | ⚠️       | Required if using email notifications                                        |
-| `NEXT_PUBLIC_APP_URL` | ❌       | Base URL for email links (default: `http://localhost:3000`)                  |
+| Variable                          | Required | Description                                                                  |
+| --------------------------------- | -------- | ---------------------------------------------------------------------------- |
+| `DATABASE_URL`                    | ✅       | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
+| `AUTH_SECRET`                     | ✅       | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
+| `OPENAI_API_KEY`                  | ✅       | OpenAI API key for document classification                                   |
+| `NEXT_PUBLIC_IS_EMAILING_ENABLED` | ✅       | Set to `"true"` to enable email alerts.                                      |
+| `ENCRYPTION_KEY`                  | ⚠️       | Required if using email notifications                                        |
+| `NEXT_PUBLIC_APP_URL`             | ❌       | Base URL for email links (default: `http://localhost:3000`)                  |
 
 ### Scraper (`apps/scraper`)
 
