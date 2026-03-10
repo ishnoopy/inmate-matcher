@@ -37,7 +37,6 @@ This application provides an end-to-end pipeline for:
 
 ## Tech Stack
 
-
 | Layer              | Technology                           |
 | ------------------ | ------------------------------------ |
 | **Monorepo**       | pnpm workspaces                      |
@@ -49,7 +48,6 @@ This application provides an end-to-end pipeline for:
 | **AI/LLM**         | OpenAI GPT-4o-mini                   |
 | **Email**          | Nodemailer (Gmail SMTP)              |
 | **UI Components**  | Base UI, Radix UI, Lucide Icons      |
-
 
 ---
 
@@ -113,24 +111,22 @@ inmate-matcher/
 
 ## Environment Variables
 
-Each app has its own `.env.example` in its directory. Copy to `.env` (or `.env.local` for the web app) and fill in your values.
+Each app has its own `.env.example` in its directory. Copy to `.env` and fill in your values.
 
 ### Web App (`apps/web`)
 
 ```bash
-cp apps/web/.env.example apps/web/.env.local
-# Edit apps/web/.env.local with your values
+cp apps/web/.env.example apps/web/.env
+# Edit apps/web/.env with your values
 ```
-
 
 | Variable              | Required | Description                                                                  |
 | --------------------- | -------- | ---------------------------------------------------------------------------- |
-| `DATABASE_URL`        | ✅        | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
-| `AUTH_SECRET`         | ✅        | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
-| `OPENAI_API_KEY`      | ✅        | OpenAI API key for document classification                                   |
+| `DATABASE_URL`        | ✅       | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
+| `AUTH_SECRET`         | ✅       | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
+| `OPENAI_API_KEY`      | ✅       | OpenAI API key for document classification                                   |
 | `ENCRYPTION_KEY`      | ⚠️       | Required if using email notifications                                        |
-| `NEXT_PUBLIC_APP_URL` | ❌        | Base URL for email links (default: `http://localhost:3000`)                  |
-
+| `NEXT_PUBLIC_APP_URL` | ❌       | Base URL for email links (default: `http://localhost:3000`)                  |
 
 ### Scraper (`apps/scraper`)
 
@@ -139,13 +135,11 @@ cp apps/scraper/.env.example apps/scraper/.env
 # Edit apps/scraper/.env if you need to override defaults
 ```
 
-
 | Variable              | Required | Description                                      |
 | --------------------- | -------- | ------------------------------------------------ |
-| `SCRAPER_CONCURRENCY` | ❌        | Parallel browser count (default: 4)              |
-| `SCRAPER_HEADLESS`    | ❌        | Run browsers headlessly (default: true)          |
-| `SCRAPER_SLOWMO_MS`   | ❌        | Delay between actions for debugging (default: 0) |
-
+| `SCRAPER_CONCURRENCY` | ❌       | Parallel browser count (default: 4)              |
+| `SCRAPER_HEADLESS`    | ❌       | Run browsers headlessly (default: true)          |
+| `SCRAPER_SLOWMO_MS`   | ❌       | Delay between actions for debugging (default: 0) |
 
 ---
 
@@ -165,7 +159,7 @@ pnpm setup:playwright
 # 4. Set up environment variables
 cp apps/web/.env.example apps/web/.env
 cp apps/scraper/.env.example apps/scraper/.env
-# Edit apps/web/.env.local with your values (see Environment Variables section)
+# Edit apps/web/.env with your values (see Environment Variables section)
 
 # 5. Initialize the database
 pnpm db:generate
@@ -181,7 +175,6 @@ pnpm dev
 
 ### Available Scripts
 
-
 | Script                  | Description                           |
 | ----------------------- | ------------------------------------- |
 | `pnpm dev`              | Start the web app in development mode |
@@ -194,7 +187,6 @@ pnpm dev
 | `pnpm scrape:limestone` | Scrape Limestone County roster        |
 | `pnpm scrape:all`       | Scrape both rosters sequentially      |
 | `pnpm setup:playwright` | Install Playwright Chromium browser   |
-
 
 ---
 
@@ -238,13 +230,11 @@ cd apps/scraper && pnpm scrape:limestone
 
 ### Scraper Configuration
 
-
 | Environment Variable  | Default | Description                                         |
 | --------------------- | ------- | --------------------------------------------------- |
 | `SCRAPER_CONCURRENCY` | 4       | Number of parallel browser instances (Madison only) |
 | `SCRAPER_HEADLESS`    | true    | Set to "false" to see the browser window            |
 | `SCRAPER_SLOWMO_MS`   | 0       | Add delay between actions for debugging             |
-
 
 ### Roster Data Format
 
@@ -252,14 +242,14 @@ Each roster entry contains:
 
 ```typescript
 interface RosterEntry {
-  id: string;              // Unique ID (e.g., "madison:abc123")
+  id: string; // Unique ID (e.g., "madison:abc123")
   source: "madison" | "limestone";
-  fullNameRaw: string;     // Original name from roster
-  nameNormalized: string;  // Normalized for matching (uppercase, no punctuation)
+  fullNameRaw: string; // Original name from roster
+  nameNormalized: string; // Normalized for matching (uppercase, no punctuation)
   bookingNumber?: string;
   dob?: string;
-  photoUrls: string[];     // Relative paths to downloaded photos
-  scrapedAt: string;       // ISO timestamp
+  photoUrls: string[]; // Relative paths to downloaded photos
+  scrapedAt: string; // ISO timestamp
 }
 ```
 
@@ -319,7 +309,6 @@ Email notifications use **Gmail SMTP** with app passwords (not your regular Gmai
 
 ### Email Settings Options
 
-
 | Setting                | Description                                          |
 | ---------------------- | ---------------------------------------------------- |
 | **Gmail Address**      | Your Gmail address (sender)                          |
@@ -327,7 +316,6 @@ Email notifications use **Gmail SMTP** with app passwords (not your regular Gmai
 | **Recipient Email**    | Where to send match alerts                           |
 | **Auto-send on Match** | Automatically send emails when matches are found     |
 | **Minimum Score**      | Only auto-send for matches with this score or higher |
-
 
 ### Testing Email Configuration
 
@@ -347,7 +335,6 @@ The system uses a **hybrid approach** combining rule-based pattern matching with
 
 ### Supported Document Types
 
-
 | Type                   | Description                    | Key Patterns                               |
 | ---------------------- | ------------------------------ | ------------------------------------------ |
 | `booking_summary`      | Jail/detention booking records | "Booking #", "Subject Name", "Charges"     |
@@ -355,17 +342,17 @@ The system uses a **hybrid approach** combining rule-based pattern matching with
 | `vehicle_crash_report` | Vehicle accident reports       | "Vehicle Crash", "Driver #1", "Witness"    |
 | `unknown`              | Unclassified documents         | None matched                               |
 
-
 ### Detection Pipeline
 
 1. **Rule-based analysis** — Fast regex pattern matching
 2. **LLM classification** — OpenAI GPT-4o-mini for ambiguous cases
 3. **Result combination** — Agreement bonuses, conflict resolution
 4. **Confidence scoring** — 0-100 scale with thresholds:
-  - **High**: ≥75% confidence
-  - **Medium**: 50-74% confidence
-  - **Low**: 25-49% confidence
-  - **None**: <25% confidence
+
+- **High**: ≥75% confidence
+- **Medium**: 50-74% confidence
+- **Low**: 25-49% confidence
+- **None**: <25% confidence
 
 ### Handling Uncertainty
 
@@ -394,12 +381,10 @@ The API implements rate limiting to prevent abuse and ensure fair usage.
 
 ### Rate Limits by Route
 
-
 | Route                | Limit       | Window   |
 | -------------------- | ----------- | -------- |
 | `/api/ingest`        | 15 requests | 1 minute |
 | All other API routes | 50 requests | 1 minute |
-
 
 ### How It Works
 
@@ -412,13 +397,11 @@ The API implements rate limiting to prevent abuse and ensure fair usage.
 
 All API responses include rate limit headers:
 
-
 | Header                  | Description                          |
 | ----------------------- | ------------------------------------ |
 | `X-RateLimit-Limit`     | Maximum requests allowed per window  |
 | `X-RateLimit-Remaining` | Requests remaining in current window |
 | `X-RateLimit-Reset`     | Seconds until the window resets      |
-
 
 ### Rate Limit Exceeded Response
 
@@ -437,7 +420,7 @@ When rate limited, the API returns:
 
 The following routes are **not** rate limited:
 
-- `/api/auth/`* — Authentication endpoints (login, signup, session)
+- `/api/auth/`\* — Authentication endpoints (login, signup, session)
 
 ### Production Considerations
 
@@ -473,16 +456,20 @@ For production deployments with multiple instances, consider migrating to:
 ### Name Matching Algorithm
 
 1. **Normalize** both extracted and roster names:
-  - Uppercase
-  - Remove punctuation
-  - Handle "LAST, FIRST" → "FIRST LAST" format
-  - Remove suffixes (Jr, Sr, II, III)
-2. **Tokenize** names into significant tokens (≥2 characters, except middle initials)
-3. **Score** by counting matching tokens:
-  - Minimum 2 matching tokens required
-  - Reject weak matches (e.g., single letter + common name)
-  - Higher scores = better matches
-4. **Rank** results by score descending
+
+- Uppercase
+- Remove punctuation
+- Handle "LAST, FIRST" → "FIRST LAST" format
+- Remove suffixes (Jr, Sr, II, III)
+
+1. **Tokenize** names into significant tokens (≥2 characters, except middle initials)
+2. **Score** by counting matching tokens:
+
+- Minimum 2 matching tokens required
+- Reject weak matches (e.g., single letter + common name)
+- Higher scores = better matches
+
+1. **Rank** results by score descending
 
 ### Database Schema
 
@@ -568,7 +555,6 @@ This project was developed using:
 
 ### Why These Choices?
 
-
 | Tool                | Reasoning                                                   |
 | ------------------- | ----------------------------------------------------------- |
 | **Playwright**      | Recommended for dynamic sites; handles JavaScript rendering |
@@ -576,7 +562,6 @@ This project was developed using:
 | **SQLite + Prisma** | Zero-config database, type-safe queries, easy migration     |
 | **OpenAI**          | Reliable, fast, cost-effective (GPT-4o-mini)                |
 | **pnpm workspaces** | Monorepo with shared packages, efficient installs           |
-
 
 ---
 
