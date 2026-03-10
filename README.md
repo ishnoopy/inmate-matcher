@@ -37,17 +37,19 @@ This application provides an end-to-end pipeline for:
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| **Monorepo** | pnpm workspaces |
-| **Scraper** | Playwright, TypeScript, tsx |
-| **Web App** | Next.js 16, React 19, Tailwind CSS 4 |
-| **Database** | SQLite via Prisma ORM |
-| **Authentication** | NextAuth.js v5 |
-| **PDF Parsing** | pdf-parse, pdfjs-dist |
-| **AI/LLM** | OpenAI GPT-4o-mini |
-| **Email** | Nodemailer (Gmail SMTP) |
-| **UI Components** | Base UI, Radix UI, Lucide Icons |
+
+| Layer              | Technology                           |
+| ------------------ | ------------------------------------ |
+| **Monorepo**       | pnpm workspaces                      |
+| **Scraper**        | Playwright, TypeScript, tsx          |
+| **Web App**        | Next.js 16, React 19, Tailwind CSS 4 |
+| **Database**       | SQLite via Prisma ORM                |
+| **Authentication** | NextAuth.js v5                       |
+| **PDF Parsing**    | pdf-parse, pdfjs-dist                |
+| **AI/LLM**         | OpenAI GPT-4o-mini                   |
+| **Email**          | Nodemailer (Gmail SMTP)              |
+| **UI Components**  | Base UI, Radix UI, Lucide Icons      |
+
 
 ---
 
@@ -120,13 +122,15 @@ cp apps/web/.env.example apps/web/.env.local
 # Edit apps/web/.env.local with your values
 ```
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | ✅ | SQLite connection string (e.g. `file:./prisma/data/dev.db`) |
-| `AUTH_SECRET` | ✅ | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
-| `OPENAI_API_KEY` | ✅ | OpenAI API key for document classification |
-| `ENCRYPTION_KEY` | ⚠️ | Required if using email notifications |
-| `NEXT_PUBLIC_APP_URL` | ❌ | Base URL for email links (default: `http://localhost:3000`) |
+
+| Variable              | Required | Description                                                                  |
+| --------------------- | -------- | ---------------------------------------------------------------------------- |
+| `DATABASE_URL`        | ✅        | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
+| `AUTH_SECRET`         | ✅        | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
+| `OPENAI_API_KEY`      | ✅        | OpenAI API key for document classification                                   |
+| `ENCRYPTION_KEY`      | ⚠️       | Required if using email notifications                                        |
+| `NEXT_PUBLIC_APP_URL` | ❌        | Base URL for email links (default: `http://localhost:3000`)                  |
+
 
 ### Scraper (`apps/scraper`)
 
@@ -135,11 +139,13 @@ cp apps/scraper/.env.example apps/scraper/.env
 # Edit apps/scraper/.env if you need to override defaults
 ```
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `SCRAPER_CONCURRENCY` | ❌ | Parallel browser count (default: 4) |
-| `SCRAPER_HEADLESS` | ❌ | Run browsers headlessly (default: true) |
-| `SCRAPER_SLOWMO_MS` | ❌ | Delay between actions for debugging (default: 0) |
+
+| Variable              | Required | Description                                      |
+| --------------------- | -------- | ------------------------------------------------ |
+| `SCRAPER_CONCURRENCY` | ❌        | Parallel browser count (default: 4)              |
+| `SCRAPER_HEADLESS`    | ❌        | Run browsers headlessly (default: true)          |
+| `SCRAPER_SLOWMO_MS`   | ❌        | Delay between actions for debugging (default: 0) |
+
 
 ---
 
@@ -147,7 +153,7 @@ cp apps/scraper/.env.example apps/scraper/.env
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
+git clone https://github.com/ishnoopy/inmate-matcher.git
 cd inmate-matcher
 
 # 2. Install dependencies
@@ -175,18 +181,20 @@ pnpm dev
 
 ### Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `pnpm dev` | Start the web app in development mode |
-| `pnpm build` | Build the web app for production |
-| `pnpm start` | Start the production server |
-| `pnpm db:generate` | Generate Prisma client |
-| `pnpm db:push` | Push schema changes to database |
-| `pnpm db:studio` | Open Prisma Studio (database GUI) |
-| `pnpm scrape:madison` | Scrape Madison County roster |
-| `pnpm scrape:limestone` | Scrape Limestone County roster |
-| `pnpm scrape:all` | Scrape both rosters sequentially |
-| `pnpm setup:playwright` | Install Playwright Chromium browser |
+
+| Script                  | Description                           |
+| ----------------------- | ------------------------------------- |
+| `pnpm dev`              | Start the web app in development mode |
+| `pnpm build`            | Build the web app for production      |
+| `pnpm start`            | Start the production server           |
+| `pnpm db:generate`      | Generate Prisma client                |
+| `pnpm db:push`          | Push schema changes to database       |
+| `pnpm db:studio`        | Open Prisma Studio (database GUI)     |
+| `pnpm scrape:madison`   | Scrape Madison County roster          |
+| `pnpm scrape:limestone` | Scrape Limestone County roster        |
+| `pnpm scrape:all`       | Scrape both rosters sequentially      |
+| `pnpm setup:playwright` | Install Playwright Chromium browser   |
+
 
 ---
 
@@ -204,9 +212,10 @@ pnpm scrape:madison
 cd apps/scraper && pnpm scrape:madison
 ```
 
-**Source:** https://www.madisoncountysheriffal.org/inmate-roster
+**Source:** [https://www.madisoncountysheriffal.org/inmate-roster](https://www.madisoncountysheriffal.org/inmate-roster)
 
 **Output:**
+
 - `apps/scraper/data/rosters/madison.json` — Structured roster data
 - `apps/scraper/data/photos/madison/*.jpg` — Mugshot images
 
@@ -220,19 +229,22 @@ pnpm scrape:limestone
 cd apps/scraper && pnpm scrape:limestone
 ```
 
-**Source:** https://limestone-al-911.zuercherportal.com/#/inmates
+**Source:** [https://limestone-al-911.zuercherportal.com/#/inmates](https://limestone-al-911.zuercherportal.com/#/inmates)
 
 **Output:**
+
 - `apps/scraper/data/rosters/limestone.json` — Structured roster data
 - `apps/scraper/data/photos/limestone/*.jpg` — Mugshot images
 
 ### Scraper Configuration
 
-| Environment Variable | Default | Description |
-|---------------------|---------|-------------|
-| `SCRAPER_CONCURRENCY` | 4 | Number of parallel browser instances (Madison only) |
-| `SCRAPER_HEADLESS` | true | Set to "false" to see the browser window |
-| `SCRAPER_SLOWMO_MS` | 0 | Add delay between actions for debugging |
+
+| Environment Variable  | Default | Description                                         |
+| --------------------- | ------- | --------------------------------------------------- |
+| `SCRAPER_CONCURRENCY` | 4       | Number of parallel browser instances (Madison only) |
+| `SCRAPER_HEADLESS`    | true    | Set to "false" to see the browser window            |
+| `SCRAPER_SLOWMO_MS`   | 0       | Add delay between actions for debugging             |
+
 
 ### Roster Data Format
 
@@ -262,7 +274,7 @@ cd apps/web
 pnpm dev
 ```
 
-Open http://localhost:3000 in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Production Build
 
@@ -307,13 +319,15 @@ Email notifications use **Gmail SMTP** with app passwords (not your regular Gmai
 
 ### Email Settings Options
 
-| Setting | Description |
-|---------|-------------|
-| **Gmail Address** | Your Gmail address (sender) |
-| **App Password** | 16-character app password from Google |
-| **Recipient Email** | Where to send match alerts |
-| **Auto-send on Match** | Automatically send emails when matches are found |
-| **Minimum Score** | Only auto-send for matches with this score or higher |
+
+| Setting                | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| **Gmail Address**      | Your Gmail address (sender)                          |
+| **App Password**       | 16-character app password from Google                |
+| **Recipient Email**    | Where to send match alerts                           |
+| **Auto-send on Match** | Automatically send emails when matches are found     |
+| **Minimum Score**      | Only auto-send for matches with this score or higher |
+
 
 ### Testing Email Configuration
 
@@ -333,12 +347,14 @@ The system uses a **hybrid approach** combining rule-based pattern matching with
 
 ### Supported Document Types
 
-| Type | Description | Key Patterns |
-|------|-------------|--------------|
-| `booking_summary` | Jail/detention booking records | "Booking #", "Subject Name", "Charges" |
-| `court_docket_notice` | Court hearing notices | "Notice of Hearing", "Defendant", "Case #" |
-| `vehicle_crash_report` | Vehicle accident reports | "Vehicle Crash", "Driver #1", "Witness" |
-| `unknown` | Unclassified documents | None matched |
+
+| Type                   | Description                    | Key Patterns                               |
+| ---------------------- | ------------------------------ | ------------------------------------------ |
+| `booking_summary`      | Jail/detention booking records | "Booking #", "Subject Name", "Charges"     |
+| `court_docket_notice`  | Court hearing notices          | "Notice of Hearing", "Defendant", "Case #" |
+| `vehicle_crash_report` | Vehicle accident reports       | "Vehicle Crash", "Driver #1", "Witness"    |
+| `unknown`              | Unclassified documents         | None matched                               |
+
 
 ### Detection Pipeline
 
@@ -346,10 +362,10 @@ The system uses a **hybrid approach** combining rule-based pattern matching with
 2. **LLM classification** — OpenAI GPT-4o-mini for ambiguous cases
 3. **Result combination** — Agreement bonuses, conflict resolution
 4. **Confidence scoring** — 0-100 scale with thresholds:
-   - **High**: ≥75% confidence
-   - **Medium**: 50-74% confidence
-   - **Low**: 25-49% confidence
-   - **None**: <25% confidence
+  - **High**: ≥75% confidence
+  - **Medium**: 50-74% confidence
+  - **Low**: 25-49% confidence
+  - **None**: <25% confidence
 
 ### Handling Uncertainty
 
@@ -378,10 +394,12 @@ The API implements rate limiting to prevent abuse and ensure fair usage.
 
 ### Rate Limits by Route
 
-| Route | Limit | Window |
-|-------|-------|--------|
-| `/api/ingest` | 15 requests | 1 minute |
+
+| Route                | Limit       | Window   |
+| -------------------- | ----------- | -------- |
+| `/api/ingest`        | 15 requests | 1 minute |
 | All other API routes | 50 requests | 1 minute |
+
 
 ### How It Works
 
@@ -394,11 +412,13 @@ The API implements rate limiting to prevent abuse and ensure fair usage.
 
 All API responses include rate limit headers:
 
-| Header | Description |
-|--------|-------------|
-| `X-RateLimit-Limit` | Maximum requests allowed per window |
+
+| Header                  | Description                          |
+| ----------------------- | ------------------------------------ |
+| `X-RateLimit-Limit`     | Maximum requests allowed per window  |
 | `X-RateLimit-Remaining` | Requests remaining in current window |
-| `X-RateLimit-Reset` | Seconds until the window resets |
+| `X-RateLimit-Reset`     | Seconds until the window resets      |
+
 
 ### Rate Limit Exceeded Response
 
@@ -416,16 +436,19 @@ When rate limited, the API returns:
 ### Excluded Routes
 
 The following routes are **not** rate limited:
-- `/api/auth/*` — Authentication endpoints (login, signup, session)
+
+- `/api/auth/`* — Authentication endpoints (login, signup, session)
 
 ### Production Considerations
 
 The current implementation uses in-memory storage, which:
+
 - ✅ Works perfectly for single-instance deployments
 - ⚠️ Does not share state across multiple instances
 - ⚠️ Resets on server restart
 
 For production deployments with multiple instances, consider migrating to:
+
 - **Redis-based rate limiting** using `@upstash/ratelimit`
 - **Edge-based limiting** via Vercel Edge Middleware with KV storage
 
@@ -450,18 +473,15 @@ For production deployments with multiple instances, consider migrating to:
 ### Name Matching Algorithm
 
 1. **Normalize** both extracted and roster names:
-   - Uppercase
-   - Remove punctuation
-   - Handle "LAST, FIRST" → "FIRST LAST" format
-   - Remove suffixes (Jr, Sr, II, III)
-
+  - Uppercase
+  - Remove punctuation
+  - Handle "LAST, FIRST" → "FIRST LAST" format
+  - Remove suffixes (Jr, Sr, II, III)
 2. **Tokenize** names into significant tokens (≥2 characters, except middle initials)
-
 3. **Score** by counting matching tokens:
-   - Minimum 2 matching tokens required
-   - Reject weak matches (e.g., single letter + common name)
-   - Higher scores = better matches
-
+  - Minimum 2 matching tokens required
+  - Reject weak matches (e.g., single letter + common name)
+  - Higher scores = better matches
 4. **Rank** results by score descending
 
 ### Database Schema
@@ -495,11 +515,13 @@ For production deployments with multiple instances, consider migrating to:
 ### Site-Specific Notes
 
 **Madison County:**
+
 - Dynamic pagination requiring JavaScript execution
 - Photos hosted on external CDN
 - Uses Playwright for full browser automation
 
 **Limestone County:**
+
 - REST API endpoint (`/api/portal/inmates/load`)
 - Base64-encoded mugshots in API response
 - No browser automation needed (API-based)
@@ -512,26 +534,26 @@ With more time, the following enhancements would be valuable:
 
 ### High Priority
 
-- [ ] **OCR integration** — Tesseract.js for scanned PDF support
-- [ ] **Fuzzy matching** — Levenshtein distance for typo tolerance
-- [ ] **Scheduled scraping** — Cron jobs to keep rosters current
-- [ ] **PostgreSQL migration** — Better concurrency and production readiness
+- **OCR integration** — Tesseract.js for scanned PDF support
+- **Fuzzy matching** — Levenshtein distance for typo tolerance
+- **Scheduled scraping** — Cron jobs to keep rosters current
+- **PostgreSQL migration** — Better concurrency and production readiness
 
 ### Medium Priority
 
-- [ ] **Batch processing** — Upload multiple PDFs at once
-- [ ] **Export functionality** — CSV/Excel export of matches
-- [ ] **Webhook notifications** — Slack, Teams, or custom webhook support
-- [ ] **Audit logging** — Track all actions for compliance
-- [ ] **Role-based access** — Admin vs. reviewer permissions
+- **Batch processing** — Upload multiple PDFs at once
+- **Export functionality** — CSV/Excel export of matches
+- **Webhook notifications** — Slack, Teams, or custom webhook support
+- **Audit logging** — Track all actions for compliance
+- **Role-based access** — Admin vs. reviewer permissions
 
 ### Nice to Have
 
-- [ ] **Dark mode** — System-aware theme switching
-- [ ] **Mobile optimization** — Responsive review interface
-- [ ] **Redis rate limiting** — Distributed rate limiting for multi-instance deployments
-- [ ] **Test coverage** — Unit and integration tests
-- [ ] **Docker deployment** — Containerized deployment option
+- **Dark mode** — System-aware theme switching
+- **Mobile optimization** — Responsive review interface
+- **Redis rate limiting** — Distributed rate limiting for multi-instance deployments
+- **Test coverage** — Unit and integration tests
+- **Docker deployment** — Containerized deployment option
 
 ---
 
@@ -546,13 +568,15 @@ This project was developed using:
 
 ### Why These Choices?
 
-| Tool | Reasoning |
-|------|-----------|
-| **Playwright** | Recommended for dynamic sites; handles JavaScript rendering |
-| **Next.js 16** | Server components, API routes, excellent DX |
-| **SQLite + Prisma** | Zero-config database, type-safe queries, easy migration |
-| **OpenAI** | Reliable, fast, cost-effective (GPT-4o-mini) |
-| **pnpm workspaces** | Monorepo with shared packages, efficient installs |
+
+| Tool                | Reasoning                                                   |
+| ------------------- | ----------------------------------------------------------- |
+| **Playwright**      | Recommended for dynamic sites; handles JavaScript rendering |
+| **Next.js 16**      | Server components, API routes, excellent DX                 |
+| **SQLite + Prisma** | Zero-config database, type-safe queries, easy migration     |
+| **OpenAI**          | Reliable, fast, cost-effective (GPT-4o-mini)                |
+| **pnpm workspaces** | Monorepo with shared packages, efficient installs           |
+
 
 ---
 
