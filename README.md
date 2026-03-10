@@ -124,6 +124,7 @@ cp apps/web/.env.example apps/web/.env
 | --------------------------------- | -------- | ---------------------------------------------------------------------------- |
 | `DATABASE_URL`                    | ✅       | SQLite connection string (e.g. `file:./prisma/data/dev.db`)                  |
 | `AUTH_SECRET`                     | ✅       | NextAuth.js session encryption key (generate with `openssl rand -base64 32`) |
+| `AUTH_URL`                        | ⚠️       | Base URL for auth redirects (e.g. `https://your-domain.com`) — required for production |
 | `OPENAI_API_KEY`                  | ✅       | OpenAI API key for document classification                                   |
 | `NEXT_PUBLIC_IS_EMAILING_ENABLED` | ✅       | Set to `"true"` to enable email alerts.                                      |
 | `ENCRYPTION_KEY`                  | ⚠️       | Required if using email notifications                                        |
