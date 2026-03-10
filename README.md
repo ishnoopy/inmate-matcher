@@ -163,7 +163,7 @@ pnpm install
 pnpm setup:playwright
 
 # 4. Set up environment variables
-cp apps/web/.env.example apps/web/.env.local
+cp apps/web/.env.example apps/web/.env
 cp apps/scraper/.env.example apps/scraper/.env
 # Edit apps/web/.env.local with your values (see Environment Variables section)
 
